@@ -1,0 +1,80 @@
+<?php
+/** 
+ * Implements hook_meni
+ */
+
+function itonics_students_menu(){
+    $items = [];
+    $items['itonics_student'] = [
+        'title' => 'student welcome message', // page title
+        'description' => 'Student Information', // description show when mouse hover on link
+        'page callback' => 'itonics_student_welcome', //callback function which is invoked when menu item is called.
+        'page arguments' => ['one','two'],
+        'access callback' => TRUE, //any user can access this page 
+    ];
+    $items['itonics_student/student_form'] = [
+        'title' => 'student registration form', // page title
+        'page callback' => 'drupal_get_form', //inbuilt function
+        'page arguments' => ['itonics_student_form'],
+        'access callback' => TRUE, //any user can access this page 
+    ];
+    return $items;
+}
+
+/**
+ * 
+ * @param void
+ * @return string
+ */
+function itonics_student_welcome($param1,$param2){
+    echo "$param1 . $param2";
+}
+ function itonics_student_form($form, &$form_submit){
+     $form['student'] = [
+        '#type' => 'radios', //input type text
+        '#title' => t('Are you a Student?'),
+        '#options' => ['yes' => t('Yes'), 'no' => t('No')],
+        '#required' => TRUE, //make this field required 
+     ];
+     $form['student_name'] = [
+        '#type' => 'textfield', //input type text
+        '#title' => 'Student Name',
+        '#required' => TRUE, //make this field required 
+
+
+    ];
+     $form['student_address'] = [
+        '#type' => 'textfield', //input type text
+        '#title' => 'Student Address',
+        '#required' => TRUE, //make this field required 
+
+
+    ];
+     $form['student_contact'] = [
+        '#type' => 'textfield', //input type text
+        '#title' => 'Student Contact',
+        '#required' => TRUE, //make this field required 
+
+
+    ];
+    
+$form['submit_button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+  
+  return $form;
+
+}
+
+
+
+function itonics_student_form_validate($form, &$form_state) { // form validation
+    if (!($form_state['values']['student_name'] > 'string')){
+      form_set_error('student_name', t('student_name must be a string.'));
+    }
+  }
+  
+  function itonics_student_form_submit($form, &$form_state) {
+  }
+  ?>

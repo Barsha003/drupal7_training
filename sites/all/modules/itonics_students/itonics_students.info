@@ -1,0 +1,4 @@
+name = itonics student
+description = Helps to make students records
+version = 1
+core = 7.x
